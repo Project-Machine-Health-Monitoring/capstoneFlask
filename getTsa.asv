@@ -1,0 +1,34 @@
+
+function [pinTSA, gearTSA, ] = getTsa(fs, Np, Ng, fPin)
+    fGear = fPin*Np/Ng; % Gear (Output) shaft frequency (Hz)
+    
+    fMesh = fPin*Np;    % Gear Mesh frequency (Hz)
+    t = 0:1/fs:20-1/fs;
+    
+    % Generating test signals for different components
+    vfIn = 0.4*sin(2*pi*fPin*t);    % Pinion waveform     
+    vfOut = 0.2*sin(2*pi*fGear*t);  % Gear waveform
+    vMesh = sin(2*pi*fMesh*t);      % Gear-mesh waveform
+    
+    % Plotting the combined signal
+    plot(t, vfIn + vfOut + vMesh)
+    xlim([0 0.25])
+    xlabel('Time (s)')
+    ylabel('Acceleration')
+    
+    % Combining the signals to create a noisy signal
+    vNoFaultNoisy = vfIn + vfOut + vMesh;
+    
+       
+    
+    % Performing Time Synchronous Averaging (TSA) for the Pinion
+
+% Performing Time Synchronous Averaging (TSA) for the Pinion
+    tPulseIn = 0:1/fPin:max(t);
+    [pinTSA,pinAmp] = tsa(vNoFaultNoisy, fs, tPulseIn, 'NumRotations', 10);
+    
+    % Performing Time Synchronous Averaging (TSA) for the Gear
+    tPulseOut = 0:1/fGear:max(t);
+    [gearTSA,gearAmp]= tsa(vNoFaultNoisy, fs, tPulseOut, 'NumRotations', 10);
+    
+        
