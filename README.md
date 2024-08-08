@@ -1,2 +1,2 @@
-# capstoneFlask
-The post-processing server will be made to apply Fast Fourier Transform and TSA algorithms to the raw measurements that the sensor collected and sent to the database. This server will be a Flask server and it will running both python and MATLAB scripts to accomplish this. Flask is a light weight python library used to create website but in this instance it acts as a bank end processing server for the website that interacts through the database. 
+# Post-processing Flask Server
+The post-processing server will be made to apply Fast Fourier Transform and TSA algorithms to the raw measurements that the sensor collected and sent to the database. This Flask server will be running both python and MATLAB scripts to accomplish the previously mentioned tasks. Flask is a light weight Python library used to create website but in this instance it acts as a back end processing server for the website that interacts through the database. 
